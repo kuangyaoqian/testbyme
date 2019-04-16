@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>全选练习</title>
+		<script type="text/javascript">
+			function myClick(btn,fun){
+				var btn = document.getElementById(btn);
+				btn.onclick = fun;
+			}
+			window.onload = function(){
+			    var checkAll = document.getElementById("checkAll");
+				var checkNoAll = document.getElementById("checkNoAll");
+				var checkRev = document.getElementById("checkRev");
+				var submit = document.getElementById("submit");
+				var items = document.getElementsByName("items");
+				var checkAllBox = document.getElementById("checkAllBox");
+				//为全选按钮checkAll绑定单击响应函数
+				myClick("checkAll",function(){
+					for(var i=0; i<items.length; i++){
+						items[i].checked = true;
+					}
+					checkAllBox.checked = true;
+				});
+				
+				//为全不选按钮checkNoAll绑定单击响应函数
+				myClick("checkNoAll",function(){
+					for(var i=0; i<items.length; i++){
+						items[i].checked = false;
+					}
+					checkAllBox.checked = false;
+				});
+				
+				//为反选按钮checkRev绑定单击响应函数
+				checkRev.onclick = function(){
+					for(var i=0; i<items.length; i++){
+						items[i].checked = !items[i].checked;
+						checkAllBox.checked = true;
+						if(items[i].checked == false){
+								checkAllBox.checked = false;
+						}
+						
+					}
+				}
+				
+				//为提交按钮submit绑定单击响应函数
+				submit.onclick = function(){
+					for(var i=0; i<items.length; i++){
+						if(items[i].checked){
+							alert(items[i].value);
+						}
+					}
+				}
+				//为checkAllBox绑定单击响应函数
+				checkAllBox.onclick = function(){
+					for(var i=0; i<items.length; i++){
+						items[i].checked = this.checked;
+					}
+				}
+				//为每一个复选框绑定单击响应函数
+				for(var i=0; i<items.length; i++){
+					items[i].onclick = function(){
+						checkAllBox.checked = true;
+						for(var j=0; j<items.length; j++){
+							if(items[j].checked == false){
+								checkAllBox.checked = false;
+							}
+						}
+					}
+				}
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<form method="" post="">
+			你喜欢哪项运动？
+			<input id="checkAllBox" type="checkbox" /> 全选/全不选<br />
+			
+			<input type="checkbox" name="items" value="足球" />足球
+			<input type="checkbox" name="items" value="篮球" />篮球
+			<input type="checkbox" name="items" value="羽毛球" />羽毛球
+			<input type="checkbox" name="items" value="乒乓球" />乒乓球
+			<br /><br />
+			<input type="button" id="checkAll" value="全选" />
+			<input type="button" id="checkNoAll" value="全不选" />
+			<input type="button" id="checkRev" value="反选" />
+			<input type="button" id="submit" value="提交" />
+		</form>
+		
+	</body>
+</html>
